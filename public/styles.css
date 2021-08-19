@@ -1,0 +1,95 @@
+:root {
+  --background: #f7f7f7;
+  --text: black;
+  --button: white;
+  --button-active: #eeeeee;
+  --button-hover: #efefef;
+}
+
+* {
+  font-size: 16px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: var(--background);
+  color: var(--text);
+}
+
+h1 {
+  font-size: 2.25rem;
+}
+
+button {
+  padding: 0.5rem;
+  background: var(--button);
+  color: var(--text);
+  border-radius: 0.25rem;
+  width: 13rem;
+}
+
+button:active {
+  background: var(--button-active);
+}
+
+button:hover {
+  background: var(--button-hover);
+}
+
+details {
+  margin: 0.75rem 0;
+}
+
+.container {
+  width: 95%;
+  margin: auto;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.error {
+  color: red;
+}
+
+.success {
+  color: #11a000;
+}
+
+#regDebug, #authDebug {
+  background: var(--button-hover);
+  color: var(--text);
+  border-radius: 0.25rem;
+  text-align: left;
+  font-size: 0.7rem;
+  padding: 0.5rem;
+  height: 15rem;
+  width: 95%;
+  overflow-y: auto;
+}
+
+/* Desktop Styles */
+@media (min-width: 75rem) {
+  * {
+    font-size: 20px;
+  }
+
+  .container {
+    width: 45rem;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #1c2128;
+    --text: #adbac7;
+    --button: #373e47;
+    --button-active: #eeeeee;
+    --button-hover: #444c56;
+  }
+}

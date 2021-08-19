@@ -1,0 +1,37 @@
+{
+  "name": "example-amazon-cognito",
+  "version": "0.1.0",
+  "bin": {
+    "example-amazon-cognito": "index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "cdk": "cdk"
+  },
+  "devDependencies": {
+    "@simplewebauthn/typescript-types": "^3.0.0",
+    "@types/aws-lambda": "^8.10.82",
+    "@types/node": "10.17.27",
+    "aws-cdk": "1.118.0",
+    "aws-sdk": "^2.970.0",
+    "esbuild": "^0.12.20",
+    "ts-node": "^9.0.0",
+    "typescript": "~3.9.7"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-cloudfront": "^1.119.0",
+    "@aws-cdk/aws-cloudfront-origins": "^1.119.0",
+    "@aws-cdk/aws-cognito": "^1.119.0",
+    "@aws-cdk/aws-iam": "^1.119.0",
+    "@aws-cdk/aws-lambda": "^1.119.0",
+    "@aws-cdk/aws-lambda-nodejs": "^1.119.0",
+    "@aws-cdk/aws-s3": "^1.119.0",
+    "@aws-cdk/aws-s3-deployment": "^1.119.0",
+    "@aws-cdk/aws-sns": "1.118.0",
+    "@aws-cdk/aws-sns-subscriptions": "1.118.0",
+    "@aws-cdk/aws-sqs": "1.118.0",
+    "@aws-cdk/core": "^1.119.0",
+    "@simplewebauthn/server": "^3.0.0"
+  }
+}
