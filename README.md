@@ -66,7 +66,7 @@ simplewebauthn-example-cognito.webappcloudfrontoutput = https://delzs89prk9ue.cl
 ### Additional notes and limitations
 
 - You can register multiple authenticators by hitting the register button again.
-- Due to implementation and limitations of Amazon Cognito customer user fields lengths only 2 authenticators can be registered to a given email address at a time.
+- Due to implementation and limitations of Amazon Cognito custom user fields lengths only 2 authenticators can be registered to a given email address at a time.
 
 
 
