@@ -1,5 +1,5 @@
 import { Context, Callback } from 'aws-lambda';
-import { generateAttestationOptions, generateAssertionOptions } from '@simplewebauthn/server';
+import { generateRegistrationOptions, generateAuthenticationOptions } from '@simplewebauthn/server';
 import { CognitoCreateAuthEvent, Authenticator } from './local-types';
 
 // Human-readable title for your website
@@ -30,7 +30,7 @@ export const handler = async (
             transports: authenticator.transports || [],
         }));
 
-        const options = generateAssertionOptions({
+        const options = generateAuthenticationOptions({
             timeout: 60000,
             // Require users to use a previously-registered authenticator
             allowCredentials: userAuthenticators.map(authenticator => ({
@@ -51,7 +51,7 @@ export const handler = async (
     }
 
     // Always provide an attestation challenge, as there is no-way using our approach to Cognito CUSTOM_AUTH to differentiate between registration/auth
-    const options = generateAttestationOptions({
+    const options = generateRegistrationOptions({
         rpName,
         rpID,
         userID: event.request.userAttributes.email,

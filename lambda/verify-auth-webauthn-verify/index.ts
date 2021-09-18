@@ -1,6 +1,6 @@
 import { CognitoIdentityServiceProvider } from 'aws-sdk';
 import { Context, Callback } from 'aws-lambda';
-import { verifyAttestationResponse, verifyAssertionResponse, VerifiedAttestation, VerifiedAssertion } from '@simplewebauthn/server';
+import { verifyRegistrationResponse, verifyAuthenticationResponse, VerifiedRegistrationResponse, VerifiedAuthenticationResponse } from '@simplewebauthn/server';
 import { CognitoVerifyAuthEvent, Authenticator } from './local-types';
 import base64url from 'base64url';
 
@@ -35,7 +35,7 @@ export const handler = async (
         // Using the "rawId" from the authenticator's assertion (challengeAnswer) compare with stored authenticator's credentialIDs to find the correct authenticator for verification
         let authenticator: Authenticator = userAuthenticators.find( ({credentialID}) => (Buffer.compare(credentialID, base64url.toBuffer(challengeAnswer.rawId)) === 0)) || userAuthenticators[0];
         
-        let verification: VerifiedAssertion = await verifyAssertionResponse({
+        let verification: VerifiedAuthenticationResponse = await verifyAuthenticationResponse({
             credential: challengeAnswer,
             expectedChallenge: event.request.privateChallengeParameters.assertionChallenge,
             expectedOrigin: origin,
@@ -46,9 +46,9 @@ export const handler = async (
         // Pass?
         if (verification.verified)
         {
-            const { assertionInfo } = verification;
+            const { authenticationInfo } = verification;
 
-            const { newCounter } = assertionInfo;
+            const { newCounter } = authenticationInfo;
             authenticator.counter = newCounter;
 
             // Update the counter for the stored authenticator
@@ -84,7 +84,7 @@ export const handler = async (
     }
     else
     {
-        let verification: VerifiedAttestation = await verifyAttestationResponse({
+        let verification: VerifiedRegistrationResponse = await verifyRegistrationResponse({
             credential: challengeAnswer,
             expectedChallenge: event.request.privateChallengeParameters.attestationChallenge,
             expectedOrigin: origin,
@@ -94,11 +94,11 @@ export const handler = async (
         // Can register new authenticator?
         if (verification.verified)
         {
-            const { attestationInfo } = verification;
+            const { registrationInfo } = verification;
             const newAuthenticator: Authenticator = {
-                credentialID: attestationInfo?.credentialID || Buffer.from(''),
-                credentialPublicKey: attestationInfo?.credentialPublicKey || Buffer.from(''),
-                counter: attestationInfo?.counter || 0,
+                credentialID: registrationInfo?.credentialID || Buffer.from(''),
+                credentialPublicKey: registrationInfo?.credentialPublicKey || Buffer.from(''),
+                counter: registrationInfo?.counter || 0,
             };
 
             // Add the new authenticator to the list of stored authenticators for the Cognito user
