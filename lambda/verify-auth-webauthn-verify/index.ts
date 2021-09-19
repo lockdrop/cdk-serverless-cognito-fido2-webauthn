@@ -1,6 +1,6 @@
 import { CognitoIdentityServiceProvider } from 'aws-sdk';
 import { Context, Callback } from 'aws-lambda';
-import { verifyRegistrationResponse, verifyAuthenticationResponse, VerifiedRegistrationResponse, VerifiedAuthenticationResponse } from '@simplewebauthn/server';
+import { verifyRegistrationResponse, verifyAuthenticationResponse, VerifiedRegistrationResponse, VerifiedAuthenticationResponse, MetadataService } from '@simplewebauthn/server';
 import { CognitoVerifyAuthEvent, Authenticator } from './local-types';
 import base64url from 'base64url';
 
@@ -17,6 +17,10 @@ export const handler = async (
     context: Context,
     callback: Callback,
 ) => {
+
+    await MetadataService.initialize({
+        verificationMode: 'permissive',
+    });
 
     // Parse the list of stored authenticators from the Cognito user
     let cognitoAuthenticatorCreds: Authenticator[] = JSON.parse(event.request.userAttributes['custom:authCreds']||'[]');
